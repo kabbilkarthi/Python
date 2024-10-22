@@ -44,7 +44,7 @@ def extract_datas():
                 owner = owner_match.group(1)
 
                 location_match = re.search('"ls_location": "(.*?)"', decoded_output)
-                location = location_match.group(1)
+                location = location_match.group(1).replace(' ','-')
 
                 nic_match = re.search('"nic_mac": "(.*?)"', decoded_output)
                 nic = nic_match.group(1)
