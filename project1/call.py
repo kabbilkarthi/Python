@@ -1,15 +1,15 @@
 #!/depot/Python/Python-3.11.2/bin/python
 import main
+import smtplib
 
-''' 
-AUTHOR: KABBIL GI
-DATE: 20-10-2024
+output = main.extract_datas()
+mail_server = ''
+from_addr = ''
+to_addr = ''
+subject_header = 'Subject: Extracted Data'
+body = output
+email_message = f"From: {from_addr}\nTo: {to_addr}\n{subject_header}\n\n{body}\n"
 
-Pre-requisites: 
-1. Always execute from ecsadmin/Jump-server which requires root/sudo privileges.
-2. User environment needs to be aliased with saihost. 
-   output: alias saihost='/depot/ems/saidb/bin/getInfo -a Search -e -m'
-3. Made for Almalinux 8.4 only
-'''
-
-main.extract_datas()
+s = smtplib.SMTP(mail_server)
+s.sendmail(from_addr, to_addr, email_message)
+s.quit()
