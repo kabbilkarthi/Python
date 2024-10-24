@@ -25,7 +25,7 @@ def extract_datas():
                 decoded_output = host_out.decode()
                 
                 # Execute the command and capture the netmask output
-                out = subprocess.check_output(['/bin/bash', '-i', '-c', f'ssh 2> /dev/null {host} ifconfig | head -n 2 | grep -i mask'])
+                out = subprocess.check_output(['/bin/bash', '-i', '-c', f'sudo ssh 2> /dev/null -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=10s {host} ifconfig | head -n 2 | grep -i mask'])
                 decoded = out.decode()
 
                 # Extract netmask value using regex
@@ -61,7 +61,6 @@ def extract_datas():
                 output += f"Regex matching failed for {host}: {e}\n"
             except Exception as e:
                 output += f"Unexpected error for {host}: {e}\n"
-
     return output
 if __name__ == "__main__":
     result = extract_datas()
